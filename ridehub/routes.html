@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Routes | RideHub</title>
+<meta name="description" content="Browse cycling routes across South India with difficulty, distance and climb." />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<header id="site-header"></header>
+<main id="main" class="wrap">
+  <div class="page-head">
+    <h1>Route Explorer</h1>
+    <p>Search, filter and save rides for your next weekend. Distances and climbs are approximate.</p>
+  </div>
+
+  <div class="toolbar">
+    <div><label for="search">Search</label><input id="search" type="search" placeholder="Try Ooty, Kerala, hills..." /></div>
+    <div><label for="level">Difficulty</label>
+      <select id="level"><option>All</option><option>Easy</option><option>Moderate</option><option>Hard</option></select></div>
+    <div><label for="sort">Sort by</label>
+      <select id="sort"><option value="default">Featured</option><option value="km">Shortest distance</option><option value="climb">Most climbing</option><option value="name">Name A-Z</option></select></div>
+    <label class="check-inline"><input type="checkbox" id="only-fav" /> Favourites only</label>
+    <button class="btn ghost" id="clear" type="button">Clear</button>
+  </div>
+  <p class="muted" id="count" aria-live="polite"></p>
+
+  <div class="cards" id="route-grid"></div>
+
+  <dialog id="route-dialog" aria-labelledby="dlg-title">
+    <div class="dlg-head"><h2 id="dlg-title"></h2><button class="btn ghost small" id="dlg-close" type="button">Close</button></div>
+    <div class="dlg-body" id="dlg-body"></div>
+  </dialog>
+</main>
+<footer id="site-footer"></footer>
+<script src="js/common.js"></script>
+<script src="js/routes.js"></script>
+</body>
+</html>
