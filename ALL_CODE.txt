@@ -1,0 +1,1426 @@
+=================== index.html ===================
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dashboard | RideHub</title>
+<meta name="description" content="Your personal riding dashboard: weekly distance, monthly goal, bike maintenance and achievements." />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<header id="site-header"></header>
+<main id="main" class="wrap">
+  <section class="hero">
+    <p class="eyebrow">Your riding dashboard</p>
+    <h1 id="greeting">Hello, rider!</h1>
+    <p>Track every kilometre, keep your bike healthy and chase your monthly goal. Everything here is saved in your browser.</p>
+    <div class="actions">
+      <a class="btn" href="ridelog.html">+ Log a ride</a>
+      <a class="btn ghost" href="routes.html">Find a route</a>
+    </div>
+    <p class="quote" id="quote"></p>
+  </section>
+
+  <section class="stats" aria-label="Riding totals">
+    <div class="card stat accent"><span>Total distance</span><strong id="stat-km">0</strong><small>km</small></div>
+    <div class="card stat"><span>Rides</span><strong id="stat-rides">0</strong></div>
+    <div class="card stat"><span>Moving time</span><strong id="stat-time">0m</strong></div>
+    <div class="card stat"><span>Avg speed</span><strong id="stat-speed">0</strong><small>km/h</small></div>
+    <div class="card stat"><span>Calories (est.)</span><strong id="stat-cal">0</strong></div>
+  </section>
+
+  <section class="dash-grid">
+    <div class="panel span-7">
+      <h2>Last 7 days <small id="week-total"></small></h2>
+      <div id="week-chart"></div>
+    </div>
+
+    <div class="panel span-5">
+      <h2>Monthly goal</h2>
+      <div class="goal-wrap">
+        <div id="goal-ring"></div>
+        <form id="goal-form">
+          <label for="goal-input">Goal (km)</label>
+          <div class="inline"><input id="goal-input" type="number" min="20" max="5000" step="10" /><button class="btn small" type="submit">Set</button></div>
+        </form>
+      </div>
+    </div>
+
+    <div class="panel span-4">
+      <h2>Bike maintenance</h2>
+      <ul id="maint-list"></ul>
+    </div>
+
+    <div class="panel span-4">
+      <h2>Pre-ride checklist <small id="check-status"></small></h2>
+      <ul id="checklist"></ul>
+      <button class="link" id="check-reset" type="button">Reset checklist</button>
+    </div>
+
+    <div class="panel span-4">
+      <h2>Achievements</h2>
+      <ul id="badges"></ul>
+    </div>
+
+    <div class="panel span-12">
+      <h2>Recent rides <a class="link" href="ridelog.html">View full log</a></h2>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Date</th><th>Route</th><th>Distance</th><th>Time</th><th>Avg speed</th></tr></thead>
+          <tbody id="recent-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+<footer id="site-footer"></footer>
+<script src="js/common.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>
+
+=================== routes.html ===================
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Routes | RideHub</title>
+<meta name="description" content="Browse cycling routes across South India with difficulty, distance and climb." />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<header id="site-header"></header>
+<main id="main" class="wrap">
+  <div class="page-head">
+    <h1>Route Explorer</h1>
+    <p>Search, filter and save rides for your next weekend. Distances and climbs are approximate.</p>
+  </div>
+
+  <div class="toolbar">
+    <div><label for="search">Search</label><input id="search" type="search" placeholder="Try Ooty, Kerala, hills..." /></div>
+    <div><label for="level">Difficulty</label>
+      <select id="level"><option>All</option><option>Easy</option><option>Moderate</option><option>Hard</option></select></div>
+    <div><label for="sort">Sort by</label>
+      <select id="sort"><option value="default">Featured</option><option value="km">Shortest distance</option><option value="climb">Most climbing</option><option value="name">Name A-Z</option></select></div>
+    <label class="check-inline"><input type="checkbox" id="only-fav" /> Favourites only</label>
+    <button class="btn ghost" id="clear" type="button">Clear</button>
+  </div>
+  <p class="muted" id="count" aria-live="polite"></p>
+
+  <div class="cards" id="route-grid"></div>
+
+  <dialog id="route-dialog" aria-labelledby="dlg-title">
+    <div class="dlg-head"><h2 id="dlg-title"></h2><button class="btn ghost small" id="dlg-close" type="button">Close</button></div>
+    <div class="dlg-body" id="dlg-body"></div>
+  </dialog>
+</main>
+<footer id="site-footer"></footer>
+<script src="js/common.js"></script>
+<script src="js/routes.js"></script>
+</body>
+</html>
+
+=================== gear.html ===================
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gear Shop | RideHub</title>
+<meta name="description" content="Helmets, lights, tools and tech for every rider. Demo shop with a working cart." />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<header id="site-header"></header>
+<main id="main" class="wrap">
+  <div class="page-head">
+    <h1>Gear Shop</h1>
+    <p>A demo store: add items, change quantities and watch the totals. Spend over &#8377;5,000 for 10% off. No real payments.</p>
+  </div>
+
+  <div class="toolbar" style="grid-template-columns: 2fr 1fr 1fr auto;">
+    <div><label for="search">Search gear</label><input id="search" type="search" placeholder="Helmet, light, pump..." /></div>
+    <div><label for="category">Category</label>
+      <select id="category"><option>All</option><option>Safety</option><option>Comfort</option><option>Tools</option><option>Tech</option></select></div>
+    <div><label for="sort">Sort by</label>
+      <select id="sort"><option value="default">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="rating">Top rated</option></select></div>
+    <button class="btn" id="open-cart" type="button">View cart</button>
+  </div>
+
+  <div class="cards" id="product-grid"></div>
+
+  <aside id="cart-drawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="drawer-head"><h2>Your cart</h2><button class="btn ghost small" id="close-cart" type="button">Close</button></div>
+    <div id="cart-items"></div>
+    <div class="totals">
+      <div><span>Subtotal</span><span id="subtotal"></span></div>
+      <div><span>Discount <small id="discount-note"></small></span><span id="discount"></span></div>
+      <div class="grand"><span>Total</span><span id="total"></span></div>
+    </div>
+    <button class="btn" id="checkout" type="button" style="margin-top:14px">Place demo order</button>
+  </aside>
+</main>
+<footer id="site-footer"></footer>
+<script src="js/common.js"></script>
+<script src="js/gear.js"></script>
+</body>
+</html>
+
+=================== ridelog.html ===================
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ride Log | RideHub</title>
+<meta name="description" content="Add, review and export your rides with automatic average speed." />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<header id="site-header"></header>
+<main id="main" class="wrap">
+  <div class="page-head">
+    <h1>Ride Log</h1>
+    <p>Add a ride and the whole site updates, including the dashboard. Your data stays in this browser.</p>
+  </div>
+
+  <div class="two-col">
+    <form class="panel" id="ride-form" novalidate>
+      <h2>Add a ride</h2>
+      <div class="field"><label for="r-date">Date</label><input id="r-date" type="date" required /></div>
+      <div class="field"><label for="r-route">Route name</label><input id="r-route" type="text" maxlength="40" placeholder="e.g. Sunday morning loop" /><span class="err" id="err-route"></span></div>
+      <div class="form-grid">
+        <div class="field"><label for="r-km">Distance (km)</label><input id="r-km" type="number" step="0.1" min="0" inputmode="decimal" /><span class="err" id="err-km"></span></div>
+        <div class="field"><label for="r-mins">Duration (min)</label><input id="r-mins" type="number" step="1" min="0" inputmode="numeric" /><span class="err" id="err-mins"></span></div>
+      </div>
+      <div class="field"><label for="r-bike">Bike</label>
+        <select id="r-bike"><option>Road bike</option><option>Mountain bike</option><option>Hybrid</option><option>Motorcycle</option></select></div>
+      <p class="speed" id="speed-preview" aria-live="polite"></p>
+      <button class="btn" type="submit">Save ride</button>
+    </form>
+
+    <section class="panel">
+      <h2>Your rides</h2>
+      <div class="mini-stats">
+        <div><span>Rides</span><strong id="sum-rides">0</strong></div>
+        <div><span>Distance</span><strong id="sum-km">0</strong></div>
+        <div><span>Time</span><strong id="sum-time">0m</strong></div>
+        <div><span>Longest</span><strong id="sum-best">-</strong></div>
+      </div>
+      <div class="log-actions">
+        <button class="btn ghost small" id="export" type="button">Export CSV</button>
+        <button class="btn ghost small" id="reset" type="button">Reset demo data</button>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Date</th><th>Route</th><th>Bike</th><th>Distance</th><th>Time</th><th>km/h</th><th></th></tr></thead>
+          <tbody id="log-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</main>
+<footer id="site-footer"></footer>
+<script src="js/common.js"></script>
+<script src="js/ridelog.js"></script>
+</body>
+</html>
+
+=================== contact.html ===================
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Join the Club | RideHub</title>
+<meta name="description" content="Join the RideHub community: weekend group rides, safety workshops and member discounts." />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<header id="site-header"></header>
+<main id="main" class="wrap">
+  <div class="page-head">
+    <h1>Join the RideHub Club</h1>
+    <p>Weekend group rides, maintenance workshops and gear discounts. Fill in the form and we will find you a riding group.</p>
+  </div>
+
+  <div class="two-col" style="grid-template-columns: 3fr 2fr;">
+    <section class="panel">
+      <form id="join-form" novalidate>
+        <h2>Sign up</h2>
+        <div class="form-grid">
+          <div class="field"><label for="c-name">Full name</label><input id="c-name" autocomplete="name" /><span class="err" id="e-name"></span></div>
+          <div class="field"><label for="c-email">Email</label><input id="c-email" type="email" autocomplete="email" /><span class="err" id="e-email"></span></div>
+          <div class="field"><label for="c-phone">Phone (optional)</label><input id="c-phone" type="tel" autocomplete="tel" /><span class="err" id="e-phone"></span></div>
+          <div class="field"><label for="c-level">Riding level</label>
+            <select id="c-level"><option value="">Choose...</option><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select><span class="err" id="e-level"></span></div>
+          <div class="field full"><label for="c-msg">What do you love about riding?</label><textarea id="c-msg" rows="4" maxlength="300"></textarea>
+            <div class="row"><span class="err" id="e-msg"></span><small class="muted" id="msg-count">0/300</small></div></div>
+        </div>
+        <button class="btn" type="submit">Join the club</button>
+      </form>
+      <div class="success" id="success" hidden>
+        <div class="tick" aria-hidden="true">&#127881;</div>
+        <h2>Welcome, <span id="success-name"></span>!</h2>
+        <p class="muted">You are on the list. Check the Routes page and plan your first ride.</p>
+        <a class="btn" href="routes.html">Browse routes</a>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Member perks</h2>
+      <ul class="perks">
+        <li>Sunday group rides for every level</li>
+        <li>Monthly bike maintenance workshop</li>
+        <li>10% off on big gear orders</li>
+        <li>Safety and night-riding tips</li>
+      </ul>
+      <h2 style="margin-top:22px">FAQ</h2>
+      <div class="faq">
+        <button aria-expanded="false">Do I need an expensive bike?</button><div class="answer" hidden>No. Any well-maintained bike works. We ride at a friendly pace.</div>
+        <button aria-expanded="false">Is the club free?</button><div class="answer" hidden>This is a demo site, so there is nothing to pay.</div>
+        <button aria-expanded="false">What should I bring?</button><div class="answer" hidden>Helmet, water, a spare tube and a good mood.</div>
+      </div>
+    </section>
+  </div>
+</main>
+<footer id="site-footer"></footer>
+<script src="js/common.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>
+
+=================== css/styles.css ===================
+/* RideHub - one stylesheet for every page. Mobile-first, light + dark themes. */
+:root {
+  --bg: #f4f1ec;
+  --surface: #ffffff;
+  --surface-2: #ebe7e0;
+  --text: #1c1b1a;
+  --muted: #6b665f;
+  --line: #ddd7cd;
+  --accent: #e8590c;
+  --accent-ink: #ffffff;
+  --accent-soft: #fde8da;
+  --teal: #0f8b8d;
+  --good: #2b8a3e;
+  --warn: #d9780f;
+  --bad: #c92a2a;
+  --shadow: 0 6px 24px rgba(40, 30, 20, 0.08);
+  --radius: 16px;
+}
+
+:root[data-theme="dark"] {
+  --bg: #121315;
+  --surface: #1c1e21;
+  --surface-2: #26292d;
+  --text: #f1efeb;
+  --muted: #a39f97;
+  --line: #31353a;
+  --accent: #ff7a2f;
+  --accent-ink: #1a1008;
+  --accent-soft: #3a2415;
+  --teal: #3cc4c6;
+  --good: #51cf66;
+  --warn: #ffa94d;
+  --bad: #ff6b6b;
+  --shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+}
+h1, h2, h3 { line-height: 1.2; margin: 0 0 .4em; letter-spacing: -0.01em; }
+h1 { font-size: clamp(1.9rem, 4.5vw, 3rem); }
+h2 { font-size: clamp(1.3rem, 2.6vw, 1.7rem); }
+h3 { font-size: 1.1rem; }
+p { margin: 0 0 .8em; }
+a { color: var(--accent); }
+.wrap { width: min(1160px, 100% - 32px); margin-inline: auto; }
+.muted { color: var(--muted); }
+.empty { color: var(--muted); text-align: center; padding: 24px; }
+:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; border-radius: 6px; }
+[hidden] { display: none !important; }
+
+/* ---------- header ---------- */
+#site-header { position: sticky; top: 0; z-index: 30; background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.nav { display: flex; align-items: center; gap: 14px; min-height: 62px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 8px; color: var(--text); text-decoration: none; font-weight: 700; font-size: 1.25rem; }
+.brand svg { color: var(--accent); flex: none; transition: transform .35s; }
+.brand { gap: 10px; }
+.brand:hover svg { transform: translateX(4px) rotate(-3deg); }
+.brand b { color: var(--accent); }
+nav { display: flex; gap: 4px; margin-left: auto; }
+nav a { text-decoration: none; color: var(--muted); padding: 8px 12px; border-radius: 10px; font-weight: 600; font-size: .95rem; }
+nav a:hover { color: var(--text); background: var(--surface-2); }
+nav a.active { color: var(--accent-ink); background: var(--accent); }
+.nav-tools { display: flex; align-items: center; gap: 10px; }
+.cart-link { position: relative; text-decoration: none; font-size: 1.3rem; padding: 4px 6px; }
+.badge { position: absolute; top: -4px; right: -6px; min-width: 19px; height: 19px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); font-size: .72rem; font-weight: 700; display: grid; place-items: center; padding: 0 5px; }
+.menu-btn { display: none; margin-left: auto; background: none; border: 1px solid var(--line); color: var(--text); font-size: 1.3rem; border-radius: 10px; padding: 4px 11px; cursor: pointer; }
+
+@media (max-width: 860px) {
+  .menu-btn { display: block; }
+  nav { display: none; width: 100%; order: 5; flex-direction: column; margin: 0 0 10px; }
+  nav.open { display: flex; }
+  .nav-tools { margin-left: 0; }
+}
+
+/* ---------- buttons / forms ---------- */
+.btn { display: inline-block; border: 0; cursor: pointer; background: var(--accent); color: var(--accent-ink); font: inherit; font-weight: 700; padding: 11px 20px; border-radius: 12px; text-decoration: none; transition: transform .12s, filter .12s; }
+.btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.btn.small { padding: 8px 14px; font-size: .9rem; }
+.btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); }
+.btn.ghost:hover { background: var(--surface-2); }
+.btn.outline { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
+.link { background: none; border: 0; padding: 0; color: var(--accent); font: inherit; font-size: .88rem; font-weight: 600; cursor: pointer; text-decoration: underline; }
+.link.danger { color: var(--bad); }
+label { font-weight: 600; font-size: .92rem; display: block; margin-bottom: 4px; }
+input, select, textarea { width: 100%; font: inherit; color: var(--text); background: var(--surface); border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+input[type="checkbox"] { width: auto; }
+input:focus, select:focus, textarea:focus { border-color: var(--teal); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 25%, transparent); }
+[aria-invalid="true"] { border-color: var(--bad); }
+.err { color: var(--bad); font-size: .82rem; min-height: 1.2em; display: block; margin-top: 2px; }
+.field { margin-bottom: 8px; }
+.form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 16px; }
+.form-grid .full { grid-column: 1 / -1; }
+@media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+
+/* ---------- layout blocks ---------- */
+main { padding-block: 28px 56px; }
+.page-head { margin-bottom: 22px; }
+.page-head p { color: var(--muted); max-width: 62ch; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.card-body { padding: 16px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; }
+.panel h2 { font-size: 1.1rem; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.panel h2 small { font-weight: 500; color: var(--muted); font-size: .85rem; }
+.row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.row.sub { font-size: .82rem; color: var(--muted); margin-top: 4px; }
+.grow { flex: 1; }
+.pill { display: inline-block; font-size: .72rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; background: var(--surface-2); color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.pill.easy { background: color-mix(in srgb, var(--good) 20%, transparent); color: var(--good); }
+.pill.moderate { background: color-mix(in srgb, var(--warn) 22%, transparent); color: var(--warn); }
+.pill.hard { background: color-mix(in srgb, var(--bad) 20%, transparent); color: var(--bad); }
+.pill.cat { background: var(--accent-soft); color: var(--accent); }
+
+/* ---------- dashboard ---------- */
+.hero { position: relative; overflow: hidden; border-radius: 24px; padding: clamp(24px, 5vw, 48px); color: #fff; background: linear-gradient(120deg, #1d1a17 0%, #3b2314 45%, #e8590c 130%); box-shadow: var(--shadow); margin-bottom: 22px; }
+.hero::after { content: ""; position: absolute; right: -60px; bottom: -80px; width: 340px; height: 340px; border-radius: 50%; border: 36px solid rgba(255,255,255,.07); box-shadow: 0 0 0 40px rgba(255,255,255,.04); }
+.hero p { max-width: 52ch; color: rgba(255,255,255,.85); }
+.hero .eyebrow { text-transform: uppercase; letter-spacing: .14em; font-size: .78rem; color: #ffb27d; font-weight: 700; }
+.hero .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; position: relative; z-index: 1; }
+.hero .btn.ghost { color: #fff; border-color: rgba(255,255,255,.4); }
+.hero .btn.ghost:hover { background: rgba(255,255,255,.12); }
+.quote { font-style: italic; margin-top: 18px; color: rgba(255,255,255,.7); position: relative; z-index: 1; }
+
+.stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 22px; }
+.stat { padding: 16px 18px; }
+.stat span { display: block; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 700; }
+.stat strong { font-size: 1.9rem; letter-spacing: -0.02em; }
+.stat small { color: var(--muted); font-size: .85rem; margin-left: 3px; }
+.stat.accent { background: var(--accent); border-color: var(--accent); }
+.stat.accent span, .stat.accent small { color: color-mix(in srgb, var(--accent-ink) 75%, transparent); }
+.stat.accent strong { color: var(--accent-ink); }
+@media (max-width: 980px) { .stats { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 560px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+
+.dash-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
+.span-7 { grid-column: span 7; } .span-5 { grid-column: span 5; } .span-4 { grid-column: span 4; } .span-6 { grid-column: span 6; } .span-8 { grid-column: span 8; } .span-12 { grid-column: span 12; }
+@media (max-width: 980px) { .span-7, .span-5, .span-4, .span-6, .span-8 { grid-column: span 12; } }
+
+#week-chart svg { width: 100%; height: auto; display: block; }
+.grid { stroke: var(--line); stroke-dasharray: 4 4; }
+.bar { fill: var(--accent); }
+.bar.empty { fill: var(--surface-2); }
+.val { fill: var(--text); font-size: 12px; font-weight: 700; }
+.lbl { fill: var(--muted); font-size: 12px; }
+
+.goal-wrap { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+#goal-ring svg { width: 150px; height: 150px; }
+#goal-ring .track { fill: none; stroke: var(--surface-2); stroke-width: 14; }
+#goal-ring .prog { fill: none; stroke: var(--teal); stroke-width: 14; stroke-linecap: round; transition: stroke-dashoffset .6s; }
+#goal-ring .big { fill: var(--text); font-size: 26px; font-weight: 800; }
+#goal-ring .small { fill: var(--muted); font-size: 11px; }
+#goal-form { flex: 1; min-width: 160px; }
+#goal-form .inline { display: flex; gap: 8px; }
+
+#maint-list, #checklist, #badges { list-style: none; margin: 0; padding: 0; }
+#maint-list li { margin-bottom: 14px; }
+.meter { height: 9px; background: var(--surface-2); border-radius: 9px; overflow: hidden; margin-top: 6px; }
+.meter i { display: block; height: 100%; border-radius: 9px; background: var(--good); transition: width .5s; }
+.meter i.soon { background: var(--warn); } .meter i.due { background: var(--bad); }
+.tag { font-size: .72rem; font-weight: 700; padding: 2px 9px; border-radius: 99px; }
+.tag.ok { background: color-mix(in srgb, var(--good) 20%, transparent); color: var(--good); }
+.tag.soon { background: color-mix(in srgb, var(--warn) 22%, transparent); color: var(--warn); }
+.tag.due { background: color-mix(in srgb, var(--bad) 20%, transparent); color: var(--bad); }
+
+#checklist li { padding: 7px 0; border-bottom: 1px dashed var(--line); }
+#checklist label { margin: 0; display: flex; gap: 10px; align-items: center; font-weight: 500; cursor: pointer; }
+#checklist input { width: 18px; height: 18px; accent-color: var(--accent); }
+#check-status { font-weight: 700; color: var(--teal); }
+
+#badges { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+#badges li { text-align: center; padding: 14px 6px; border-radius: 14px; background: var(--surface-2); color: var(--muted); font-size: .8rem; font-weight: 600; filter: grayscale(1); opacity: .6; }
+#badges li.got { background: var(--accent-soft); color: var(--text); filter: none; opacity: 1; }
+#badges .ico { display: block; font-size: 1.7rem; }
+
+table { width: 100%; border-collapse: collapse; font-size: .94rem; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+th { color: var(--muted); font-size: .76rem; text-transform: uppercase; letter-spacing: .06em; }
+.table-scroll { overflow-x: auto; }
+
+/* ---------- routes ---------- */
+.toolbar { display: grid; grid-template-columns: 2fr 1fr 1fr auto auto; gap: 12px; align-items: end; margin-bottom: 14px; }
+@media (max-width: 860px) { .toolbar { grid-template-columns: 1fr 1fr; } }
+.check-inline { display: flex; align-items: center; gap: 8px; padding-bottom: 10px; font-weight: 600; font-size: .9rem; }
+.check-inline input { width: 18px; height: 18px; accent-color: var(--accent); }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+.route-art { position: relative; height: 112px; background: linear-gradient(160deg, #3b2314, #e8590c); }
+.route-art.easy { background: linear-gradient(160deg, #0b5a5c, #3cc4c6); }
+.route-art.moderate { background: linear-gradient(160deg, #6b3e0a, #f0a030); }
+.route-art.hard { background: linear-gradient(160deg, #3a1010, #e8590c); }
+.route-art svg { position: absolute; inset: auto 0 0 0; width: 100%; height: 70%; fill: rgba(255,255,255,.22); }
+.route-art .pill { position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,.45); color: #fff; }
+.fav { position: absolute; top: 8px; right: 10px; border: 0; background: rgba(0,0,0,.35); color: #fff; font-size: 1.2rem; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; }
+.fav.on { color: #ffd43b; }
+.facts { list-style: none; display: flex; gap: 18px; padding: 0; margin: 10px 0 14px; color: var(--muted); }
+.facts b { color: var(--text); font-size: 1.15rem; }
+dialog { border: 0; border-radius: 20px; padding: 0; width: min(480px, 92vw); background: var(--surface); color: var(--text); box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+dialog::backdrop { background: rgba(0,0,0,.55); }
+.dlg-head { display: flex; justify-content: space-between; align-items: center; padding: 18px 22px 0; }
+.dlg-body { padding: 8px 22px 22px; }
+.dlg-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0; }
+.dlg-stats div { background: var(--surface-2); border-radius: 12px; text-align: center; padding: 10px; }
+.dlg-stats b { display: block; font-size: 1.4rem; color: var(--accent); }
+.dlg-stats span { font-size: .78rem; color: var(--muted); }
+.note { font-size: .82rem; color: var(--muted); }
+
+/* ---------- gear ---------- */
+.prod-art { height: 110px; display: grid; place-items: center; font-size: 3.4rem; background: var(--surface-2); }
+.product h3 { margin-top: 8px; }
+.product .row { margin: 6px 0 12px; }
+.stars { color: #f59f00; letter-spacing: 1px; }
+.stars small { color: var(--muted); letter-spacing: 0; }
+#cart-drawer { position: fixed; top: 0; right: 0; height: 100%; width: min(400px, 100%); background: var(--surface); box-shadow: -10px 0 40px rgba(0,0,0,.3); transform: translateX(105%); transition: transform .3s; z-index: 50; display: flex; flex-direction: column; padding: 20px; }
+#cart-drawer.open { transform: none; }
+#cart-items { flex: 1; overflow-y: auto; margin: 12px 0; }
+.cart-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.cart-row .ico { font-size: 1.6rem; }
+.qty { display: flex; align-items: center; gap: 8px; }
+.qty button { width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); color: var(--text); cursor: pointer; font-weight: 700; }
+.totals div { display: flex; justify-content: space-between; padding: 3px 0; }
+.totals .grand { font-size: 1.2rem; font-weight: 800; border-top: 2px solid var(--line); margin-top: 6px; padding-top: 8px; }
+.totals small { color: var(--teal); font-weight: 600; }
+.drawer-head { display: flex; justify-content: space-between; align-items: center; }
+
+/* ---------- log + contact ---------- */
+.two-col { display: grid; grid-template-columns: 1fr 2fr; gap: 18px; align-items: start; }
+@media (max-width: 980px) { .two-col { grid-template-columns: 1fr; } }
+.speed { margin: 6px 0 14px; font-weight: 700; color: var(--teal); }
+.mini-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 14px; }
+.mini-stats div { background: var(--surface-2); border-radius: 12px; padding: 10px 12px; }
+.mini-stats span { display: block; font-size: .74rem; text-transform: uppercase; color: var(--muted); font-weight: 700; letter-spacing: .05em; }
+.mini-stats strong { font-size: 1.3rem; }
+@media (max-width: 560px) { .mini-stats { grid-template-columns: repeat(2, 1fr); } }
+.log-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.perks { list-style: none; padding: 0; margin: 14px 0 0; }
+.perks li { padding: 8px 0 8px 30px; position: relative; }
+.perks li::before { content: "\2713"; position: absolute; left: 0; top: 8px; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-size: .8rem; font-weight: 800; }
+.success { text-align: center; padding: 30px 10px; }
+.success .tick { font-size: 3rem; }
+.faq button { width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--line); color: var(--text); font: inherit; font-weight: 700; padding: 14px 4px; cursor: pointer; display: flex; justify-content: space-between; }
+.faq button::after { content: "+"; color: var(--accent); font-size: 1.2rem; }
+.faq button[aria-expanded="true"]::after { content: "\2212"; }
+.faq .answer { padding: 10px 4px 14px; color: var(--muted); }
+
+/* ---------- footer / toast ---------- */
+#site-footer { border-top: 1px solid var(--line); background: var(--surface); padding-block: 26px; margin-top: 20px; }
+.foot { display: grid; grid-template-columns: 2fr 2fr 2fr; gap: 24px; font-size: .9rem; color: var(--muted); }
+.foot a { color: var(--muted); } .foot strong { color: var(--text); }
+@media (max-width: 760px) { .foot { grid-template-columns: 1fr; } }
+#toast { position: fixed; left: 50%; bottom: 26px; transform: translate(-50%, 30px); background: var(--text); color: var(--bg); padding: 11px 20px; border-radius: 12px; font-weight: 600; opacity: 0; pointer-events: none; transition: .25s; z-index: 80; max-width: 92vw; }
+#toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+@media print { #site-header, #site-footer, .btn { display: none; } }
+
+=================== src/common.ts ===================
+/* RideHub - shared code: types, storage, seed data, header/footer, theme, toast.
+   Written as a plain script (no imports) so the site also works by double-clicking the HTML files. */
+
+interface Ride {
+  id: number;
+  date: string; // YYYY-MM-DD
+  route: string;
+  km: number;
+  mins: number;
+  bike: string;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  category: "Safety" | "Comfort" | "Tools" | "Tech";
+  price: number; // INR
+  rating: number;
+  icon: string;
+  blurb: string;
+}
+
+interface RoutePlan {
+  id: number;
+  name: string;
+  region: string;
+  km: number;
+  climb: number; // metres
+  level: "Easy" | "Moderate" | "Hard";
+  bestTime: string;
+  tip: string;
+}
+
+namespace RH {
+  // ---------- storage helpers (wrapped in try/catch: storage can be blocked) ----------
+  export function load<T>(key: string, fallback: T): T {
+    try {
+      const raw = localStorage.getItem("ridehub." + key);
+      return raw ? (JSON.parse(raw) as T) : fallback;
+    } catch {
+      return fallback;
+    }
+  }
+
+  export function save<T>(key: string, value: T): void {
+    try {
+      localStorage.setItem("ridehub." + key, JSON.stringify(value));
+    } catch {
+      /* ignore */
+    }
+  }
+
+  // ---------- small utilities ----------
+  export function esc(text: string): string {
+    return text.replace(/[&<>"']/g, (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] as string)
+    );
+  }
+
+  export function $(sel: string, root: ParentNode = document): HTMLElement {
+    return root.querySelector(sel) as HTMLElement;
+  }
+
+  export function $$(sel: string, root: ParentNode = document): HTMLElement[] {
+    return Array.from(root.querySelectorAll(sel)) as HTMLElement[];
+  }
+
+  export function isoDaysAgo(n: number): string {
+    const d = new Date();
+    d.setDate(d.getDate() - n);
+    return d.toISOString().slice(0, 10);
+  }
+
+  export function inr(n: number): string {
+    return "₹" + n.toLocaleString("en-IN");
+  }
+
+  export function fmtDuration(mins: number): string {
+    const h = Math.floor(mins / 60);
+    const m = mins % 60;
+    return h ? `${h}h ${m.toString().padStart(2, "0")}m` : `${m}m`;
+  }
+
+  // ---------- ride data (seeded once so the dashboard is never empty) ----------
+  export function getRides(): Ride[] {
+    const stored = load<Ride[] | null>("rides", null);
+    if (stored) return stored;
+    const seed: Ride[] = [
+      { id: 1, date: isoDaysAgo(0), route: "ECR Sunrise Loop", km: 42, mins: 105, bike: "Road bike" },
+      { id: 2, date: isoDaysAgo(1), route: "Office commute", km: 12, mins: 36, bike: "Hybrid" },
+      { id: 3, date: isoDaysAgo(2), route: "Yelagiri Hill Climb", km: 58, mins: 190, bike: "Road bike" },
+      { id: 4, date: isoDaysAgo(4), route: "Pondicherry Coast Run", km: 76, mins: 195, bike: "Road bike" },
+      { id: 5, date: isoDaysAgo(5), route: "Evening spin", km: 18, mins: 48, bike: "Hybrid" },
+      { id: 6, date: isoDaysAgo(8), route: "Kolli Hills Ghat", km: 64, mins: 240, bike: "Mountain bike" },
+      { id: 7, date: isoDaysAgo(12), route: "ECR Sunrise Loop", km: 40, mins: 102, bike: "Road bike" },
+      { id: 8, date: isoDaysAgo(17), route: "Village trail", km: 25, mins: 85, bike: "Mountain bike" },
+    ];
+    save("rides", seed);
+    return seed;
+  }
+
+  export function saveRides(rides: Ride[]): void {
+    save("rides", rides);
+  }
+
+  // ---------- header / footer ----------
+  const PAGES: { file: string; key: string; label: string }[] = [
+    { file: "index.html", key: "dashboard", label: "Dashboard" },
+    { file: "routes.html", key: "routes", label: "Routes" },
+    { file: "gear.html", key: "gear", label: "Gear Shop" },
+    { file: "ridelog.html", key: "ridelog", label: "Ride Log" },
+    { file: "contact.html", key: "contact", label: "Join the Club" },
+  ];
+
+  const LOGO =
+    '<svg class="logo-bike" viewBox="0 0 200 110" width="96" height="53" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">' +
+    '<g stroke-width="6"><circle cx="38" cy="80" r="22"/><circle cx="164" cy="80" r="22"/></g>' +
+    '<g stroke-width="1.8" opacity=".7"><circle cx="38" cy="80" r="14"/><circle cx="164" cy="80" r="14"/>' +
+    '<path d="M38 66V94M24 80H52M28 70L48 90M48 70L28 90M164 66V94M150 80H178M154 70L174 90M174 70L154 90"/></g>' +
+    '<circle cx="38" cy="80" r="4" fill="currentColor" stroke="none"/><circle cx="164" cy="80" r="4" fill="currentColor" stroke="none"/>' +
+    '<circle cx="164" cy="80" r="8" stroke-width="2"/>' +
+    '<path d="M164 80L142 34" stroke-width="5"/>' +
+    '<path d="M170 80L148 36" stroke-width="2.5" opacity=".7"/>' +
+    '<path d="M147 52Q162 45 178 56" stroke-width="4.5"/>' +
+    '<path d="M138 27L121 20L115 22" stroke-width="4.5"/>' +
+    '<path d="M139 30L155 33L152 42L139 40Z" fill="currentColor" stroke-width="2"/>' +
+    '<g stroke-width="3.4"><path d="M136 38L86 72"/><path d="M68 52L86 72"/></g>' +
+    '<path d="M86 74L38 80" stroke-width="6"/>' +
+    '<path d="M21 31L56 41L102 41L110 33C121 24 133 27 141 34L136 46C124 42 113 46 104 54L58 52Z" fill="currentColor" stroke-width="2.5"/>' +
+    '<path d="M90 58L123 54L129 78L98 84Z" fill="currentColor" stroke-width="2.5"/>' +
+    '<g style="stroke:var(--surface)" stroke-width="2.2"><path d="M103 59L108 82M112 57.5L117 80.5M121 56L125 78"/></g>' +
+    '<path d="M106 88L72 93" stroke-width="6"/>' +
+    '</svg>';
+
+  export function cartCount(): number {
+    return load<{ id: number; qty: number }[]>("cart", []).reduce((s, i) => s + i.qty, 0);
+  }
+
+  export function updateCartBadge(): void {
+    const b = document.getElementById("cart-badge");
+    if (b) {
+      const n = cartCount();
+      b.textContent = String(n);
+      b.hidden = n === 0;
+    }
+  }
+
+  function applyTheme(theme: string): void {
+    document.documentElement.setAttribute("data-theme", theme);
+    const btn = document.getElementById("theme-toggle");
+    if (btn) btn.textContent = theme === "dark" ? "☀ Light" : "☾ Dark";
+  }
+
+  export function init(activeKey: string): void {
+    const header = document.getElementById("site-header");
+    if (header) {
+      const links = PAGES.map(
+        (p) =>
+          `<a href="${p.file}" class="${p.key === activeKey ? "active" : ""}"${
+            p.key === activeKey ? ' aria-current="page"' : ""
+          }>${p.label}</a>`
+      ).join("");
+      header.innerHTML =
+        `<div class="wrap nav">` +
+        `<a class="brand" href="index.html">${LOGO}<span>Ride<b>Hub</b></span></a>` +
+        `<button class="menu-btn" id="menu-btn" aria-label="Toggle menu" aria-expanded="false">☰</button>` +
+        `<nav id="nav-links" aria-label="Main">${links}</nav>` +
+        `<div class="nav-tools">` +
+        `<a class="cart-link" href="gear.html#cart" aria-label="Cart">🛒<span id="cart-badge" class="badge" hidden>0</span></a>` +
+        `<button class="btn ghost small" id="theme-toggle">☾ Dark</button>` +
+        `</div></div>`;
+    }
+
+    const footer = document.getElementById("site-footer");
+    if (footer) {
+      footer.innerHTML =
+        `<div class="wrap foot">` +
+        `<div><strong>RideHub</strong><p>A cycling &amp; riding companion built for the Front End Design and Testing (CSI3029) assessment.</p></div>` +
+        `<div><strong>Pages</strong><p>${PAGES.map((p) => `<a href="${p.file}">${p.label}</a>`).join(" · ")}</p></div>` +
+        `<div><strong>Ride safe</strong><p>Helmet on, lights on, phone away. Respect traffic and every rider.</p></div>` +
+        `</div>`;
+    }
+
+    // theme: saved choice -> else system preference
+    const saved = load<string | null>("theme", null);
+    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    applyTheme(saved || (prefersDark ? "dark" : "light"));
+
+    const toggle = document.getElementById("theme-toggle");
+    toggle?.addEventListener("click", () => {
+      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      save("theme", next);
+      applyTheme(next);
+      document.dispatchEvent(new CustomEvent("ridehub:theme"));
+    });
+
+    const menuBtn = document.getElementById("menu-btn");
+    const nav = document.getElementById("nav-links");
+    menuBtn?.addEventListener("click", () => {
+      const open = nav?.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", String(!!open));
+    });
+
+    updateCartBadge();
+  }
+
+  // ---------- toast ----------
+  export function toast(message: string): void {
+    let box = document.getElementById("toast");
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "toast";
+      box.setAttribute("role", "status");
+      document.body.appendChild(box);
+    }
+    box.textContent = message;
+    box.classList.add("show");
+    window.setTimeout(() => box && box.classList.remove("show"), 2400);
+  }
+}
+
+=================== src/dashboard.ts ===================
+/* RideHub - Dashboard page logic */
+(function () {
+  const { $, esc, fmtDuration, load, save, toast } = RH;
+  RH.init("dashboard");
+
+  const rides = RH.getRides();
+
+  // ---------- greeting ----------
+  const hour = new Date().getHours();
+  const greet = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+  $("#greeting").textContent = `${greet}, rider!`;
+
+  // ---------- headline stats ----------
+  const totalKm = rides.reduce((s, r) => s + r.km, 0);
+  const totalMins = rides.reduce((s, r) => s + r.mins, 0);
+  const calories = Math.round(totalKm * 28); // rough estimate: ~28 kcal per km
+  const avgSpeed = totalMins ? totalKm / (totalMins / 60) : 0;
+
+  $("#stat-km").textContent = totalKm.toFixed(0);
+  $("#stat-rides").textContent = String(rides.length);
+  $("#stat-time").textContent = fmtDuration(totalMins);
+  $("#stat-speed").textContent = avgSpeed.toFixed(1);
+  $("#stat-cal").textContent = calories.toLocaleString("en-IN");
+
+  // ---------- weekly bar chart (SVG, last 7 days) ----------
+  function drawWeekChart(): void {
+    const days: { label: string; km: number }[] = [];
+    for (let i = 6; i >= 0; i--) {
+      const iso = RH.isoDaysAgo(i);
+      const d = new Date(iso + "T00:00:00");
+      const km = rides.filter((r) => r.date === iso).reduce((s, r) => s + r.km, 0);
+      days.push({ label: d.toLocaleDateString("en-US", { weekday: "short" }), km });
+    }
+    const max = Math.max(10, ...days.map((d) => d.km));
+    const W = 560, H = 220, padB = 32, padT = 22, gap = 14;
+    const bw = (W - gap * (days.length + 1)) / days.length;
+    let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Distance ridden in the last 7 days">`;
+    [0.5, 1].forEach((f) => {
+      const y = padT + (H - padT - padB) * (1 - f);
+      svg += `<line class="grid" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;
+    });
+    days.forEach((d, i) => {
+      const h = ((H - padT - padB) * d.km) / max;
+      const x = gap + i * (bw + gap);
+      const y = H - padB - h;
+      svg += `<rect class="bar${d.km ? "" : " empty"}" x="${x}" y="${d.km ? y : H - padB - 3}" width="${bw}" height="${d.km ? h : 3}" rx="6"><title>${d.label}: ${d.km} km</title></rect>`;
+      if (d.km) svg += `<text class="val" x="${x + bw / 2}" y="${y - 6}" text-anchor="middle">${d.km}</text>`;
+      svg += `<text class="lbl" x="${x + bw / 2}" y="${H - 10}" text-anchor="middle">${d.label}</text>`;
+    });
+    svg += "</svg>";
+    $("#week-chart").innerHTML = svg;
+    const weekKm = days.reduce((s, d) => s + d.km, 0);
+    $("#week-total").textContent = `${weekKm} km this week`;
+  }
+  drawWeekChart();
+
+  // ---------- monthly goal ring ----------
+  function drawGoal(): void {
+    const goal = load<number>("goal", 300);
+    const now = new Date();
+    const monthKm = rides
+      .filter((r) => {
+        const d = new Date(r.date + "T00:00:00");
+        return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+      })
+      .reduce((s, r) => s + r.km, 0);
+    const pct = Math.min(100, Math.round((monthKm / goal) * 100));
+    const R = 54, C = 2 * Math.PI * R;
+    $("#goal-ring").innerHTML =
+      `<svg viewBox="0 0 140 140" role="img" aria-label="${pct}% of monthly goal">` +
+      `<circle class="track" cx="70" cy="70" r="${R}"/>` +
+      `<circle class="prog" cx="70" cy="70" r="${R}" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - pct / 100)}" transform="rotate(-90 70 70)"/>` +
+      `<text x="70" y="68" text-anchor="middle" class="big">${pct}%</text>` +
+      `<text x="70" y="88" text-anchor="middle" class="small">${monthKm} / ${goal} km</text></svg>`;
+    ($("#goal-input") as HTMLInputElement).value = String(goal);
+  }
+  drawGoal();
+  $("#goal-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const v = Number(($("#goal-input") as HTMLInputElement).value);
+    if (v >= 20 && v <= 5000) {
+      save("goal", v);
+      drawGoal();
+      toast("Monthly goal updated");
+    } else {
+      toast("Enter a goal between 20 and 5000 km");
+    }
+  });
+
+  // ---------- maintenance tracker ----------
+  const parts = [
+    { key: "chain", name: "Chain lube", every: 300 },
+    { key: "brakes", name: "Brake pads check", every: 1000 },
+    { key: "tyres", name: "Tyre replacement", every: 3000 },
+  ];
+  function drawMaintenance(): void {
+    const base = load<Record<string, number>>("service", {});
+    $("#maint-list").innerHTML = parts
+      .map((p) => {
+        const since = Math.max(0, totalKm - (base[p.key] || 0));
+        const pct = Math.min(100, Math.round((since / p.every) * 100));
+        const state = pct >= 100 ? "due" : pct >= 75 ? "soon" : "ok";
+        return (
+          `<li><div class="row"><span>${p.name}</span><span class="tag ${state}">${state === "due" ? "Service due" : state === "soon" ? "Due soon" : "Good"}</span></div>` +
+          `<div class="meter" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i class="${state}" style="width:${pct}%"></i></div>` +
+          `<div class="row sub"><span>${since.toFixed(0)} / ${p.every} km</span>` +
+          `<button class="link" data-part="${p.key}">Mark serviced</button></div></li>`
+        );
+      })
+      .join("");
+  }
+  drawMaintenance();
+  $("#maint-list").addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest("button[data-part]") as HTMLElement | null;
+    if (!btn) return;
+    const base = load<Record<string, number>>("service", {});
+    base[btn.dataset.part as string] = totalKm;
+    save("service", base);
+    drawMaintenance();
+    toast("Marked as serviced");
+  });
+
+  // ---------- pre-ride checklist ----------
+  const checks = ["Tyre pressure", "Chain lubed", "Brakes responsive", "Lights charged", "Helmet fastened", "Water bottle filled"];
+  function drawChecklist(): void {
+    const done = load<string[]>("checklist", []);
+    $("#checklist").innerHTML = checks
+      .map(
+        (c, i) =>
+          `<li><label><input type="checkbox" data-i="${i}" ${done.includes(c) ? "checked" : ""}/> <span>${c}</span></label></li>`
+      )
+      .join("");
+    const n = done.filter((c) => checks.includes(c)).length;
+    $("#check-status").textContent = n === checks.length ? "All set - enjoy the ride!" : `${n}/${checks.length} checked`;
+  }
+  drawChecklist();
+  $("#checklist").addEventListener("change", (e) => {
+    const box = e.target as HTMLInputElement;
+    if (box.type !== "checkbox") return;
+    const name = checks[Number(box.dataset.i)];
+    let done = load<string[]>("checklist", []);
+    done = box.checked ? [...done, name] : done.filter((c) => c !== name);
+    save("checklist", done);
+    drawChecklist();
+  });
+  $("#check-reset").addEventListener("click", () => {
+    save("checklist", []);
+    drawChecklist();
+  });
+
+  // ---------- achievements ----------
+  const longest = Math.max(0, ...rides.map((r) => r.km));
+  const badges = [
+    { icon: "🏁", name: "First 100 km", ok: totalKm >= 100 },
+    { icon: "🔥", name: "500 km Club", ok: totalKm >= 500 },
+    { icon: "⛰", name: "Hill Hunter", ok: rides.some((r) => /hill|ghat/i.test(r.route)) },
+    { icon: "🚴", name: "50 km Day", ok: longest >= 50 },
+    { icon: "📅", name: "10 Rides", ok: rides.length >= 10 },
+    { icon: "🌅", name: "Century Rider", ok: longest >= 100 },
+  ];
+  $("#badges").innerHTML = badges
+    .map((b) => `<li class="${b.ok ? "got" : ""}"><span class="ico">${b.icon}</span><span>${b.name}</span></li>`)
+    .join("");
+
+  // ---------- recent rides ----------
+  const recent = [...rides].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
+  $("#recent-body").innerHTML = recent
+    .map(
+      (r) =>
+        `<tr><td>${r.date}</td><td>${esc(r.route)}</td><td>${r.km} km</td><td>${fmtDuration(r.mins)}</td><td>${(r.km / (r.mins / 60)).toFixed(1)} km/h</td></tr>`
+    )
+    .join("");
+
+  // ---------- rider's quote ----------
+  const quotes = [
+    "Keep the pedals turning and the road will sort out the rest.",
+    "The best rides start before sunrise.",
+    "Hills are just slow-motion downhills waiting to happen.",
+    "Ride today, rest tomorrow, repeat.",
+  ];
+  $("#quote").textContent = quotes[new Date().getDate() % quotes.length];
+})();
+
+=================== src/routes.ts ===================
+/* RideHub - Routes page: search, filter, sort, favourites, details dialog */
+(function () {
+  const { $, $$, esc, load, save, toast } = RH;
+  RH.init("routes");
+
+  // Distances / climbs are approximate and for planning inspiration only.
+  const routes: RoutePlan[] = [
+    { id: 1, name: "ECR Sunrise Loop", region: "Chennai", km: 45, climb: 60, level: "Easy", bestTime: "5:00 - 8:00 AM", tip: "Flat, scenic coastal road. Start early to avoid traffic and heat." },
+    { id: 2, name: "Pondicherry Coast Run", region: "Puducherry", km: 150, climb: 180, level: "Moderate", bestTime: "Oct - Feb", tip: "Great weekend ride. Plan a breakfast stop around Mahabalipuram." },
+    { id: 3, name: "Yelagiri Hill Climb", region: "Tirupattur", km: 60, climb: 1050, level: "Hard", bestTime: "Nov - Feb", tip: "14 hairpin bends. Pace yourself and carry extra water." },
+    { id: 4, name: "Kolli Hills Ghat", region: "Namakkal", km: 70, climb: 1200, level: "Hard", bestTime: "Oct - Jan", tip: "70 hairpin bends. Brake early and keep off the centre line." },
+    { id: 5, name: "Kodaikanal Ghat Road", region: "Dindigul", km: 65, climb: 1900, level: "Hard", bestTime: "Sep - Feb", tip: "Long steady climb. Start before 7 AM to beat the fog and traffic." },
+    { id: 6, name: "Coonoor - Ooty Tea Trail", region: "The Nilgiris", km: 35, climb: 750, level: "Moderate", bestTime: "Year round", tip: "Rolling tea estates. Carry a light rain jacket." },
+    { id: 7, name: "Backwater Village Spin", region: "Kerala", km: 28, climb: 15, level: "Easy", bestTime: "Nov - Mar", tip: "Pancake flat. Ideal for relaxed rides and photography." },
+    { id: 8, name: "Cauvery Riverside Trail", region: "Tiruchirappalli", km: 40, climb: 40, level: "Easy", bestTime: "Oct - Feb", tip: "Quiet village roads along the river. Watch for tractors." },
+    { id: 9, name: "Coorg Coffee Country", region: "Karnataka", km: 90, climb: 1100, level: "Moderate", bestTime: "Oct - Mar", tip: "Winding roads through coffee estates. Good tyre grip matters in rain." },
+  ];
+
+  const favs = new Set<number>(load<number[]>("favs", []));
+  const grid = $("#route-grid");
+  const search = $("#search") as HTMLInputElement;
+  const level = $("#level") as HTMLSelectElement;
+  const sort = $("#sort") as HTMLSelectElement;
+  const onlyFav = $("#only-fav") as HTMLInputElement;
+
+  function levelClass(l: string): string {
+    return l.toLowerCase();
+  }
+
+  function render(): void {
+    const q = search.value.trim().toLowerCase();
+    let list = routes.filter(
+      (r) =>
+        (!q || (r.name + " " + r.region).toLowerCase().includes(q)) &&
+        (level.value === "All" || r.level === level.value) &&
+        (!onlyFav.checked || favs.has(r.id))
+    );
+    if (sort.value === "km") list.sort((a, b) => a.km - b.km);
+    if (sort.value === "climb") list.sort((a, b) => b.climb - a.climb);
+    if (sort.value === "name") list.sort((a, b) => a.name.localeCompare(b.name));
+
+    $("#count").textContent = `${list.length} route${list.length === 1 ? "" : "s"} found`;
+    if (!list.length) {
+      grid.innerHTML = '<p class="empty">No routes match your filters. Try clearing the search.</p>';
+      return;
+    }
+    grid.innerHTML = list
+      .map(
+        (r) =>
+          `<article class="card route">` +
+          `<div class="route-art ${levelClass(r.level)}"><svg viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 50 L30 35 L55 42 L90 15 L120 30 L150 8 L200 40 V60 H0Z"/></svg>` +
+          `<span class="pill ${levelClass(r.level)}">${r.level}</span>` +
+          `<button class="fav ${favs.has(r.id) ? "on" : ""}" data-fav="${r.id}" aria-label="Save ${esc(r.name)}" aria-pressed="${favs.has(r.id)}">${favs.has(r.id) ? "★" : "☆"}</button></div>` +
+          `<div class="card-body"><h3>${esc(r.name)}</h3><p class="muted">${esc(r.region)}</p>` +
+          `<ul class="facts"><li><b>${r.km}</b> km</li><li><b>${r.climb}</b> m climb</li></ul>` +
+          `<button class="btn small" data-open="${r.id}">View details</button></div></article>`
+      )
+      .join("");
+  }
+
+  [search, level, sort, onlyFav].forEach((el) => el.addEventListener("input", render));
+  $("#clear").addEventListener("click", () => {
+    search.value = "";
+    level.value = "All";
+    sort.value = "default";
+    onlyFav.checked = false;
+    render();
+  });
+
+  const dialog = $("#route-dialog") as HTMLDialogElement;
+
+  grid.addEventListener("click", (e) => {
+    const t = e.target as HTMLElement;
+    const favBtn = t.closest("[data-fav]") as HTMLElement | null;
+    if (favBtn) {
+      const id = Number(favBtn.dataset.fav);
+      if (favs.has(id)) {
+        favs.delete(id);
+        toast("Removed from favourites");
+      } else {
+        favs.add(id);
+        toast("Saved to favourites");
+      }
+      save("favs", Array.from(favs));
+      render();
+      return;
+    }
+    const openBtn = t.closest("[data-open]") as HTMLElement | null;
+    if (openBtn) {
+      const r = routes.find((x) => x.id === Number(openBtn.dataset.open));
+      if (!r) return;
+      const hours = r.km / (r.level === "Hard" ? 14 : r.level === "Moderate" ? 18 : 22);
+      $("#dlg-title").textContent = r.name;
+      $("#dlg-body").innerHTML =
+        `<p class="muted">${esc(r.region)} · <span class="pill ${levelClass(r.level)}">${r.level}</span></p>` +
+        `<div class="dlg-stats"><div><b>${r.km}</b><span>km</span></div><div><b>${r.climb}</b><span>m climb</span></div><div><b>${hours.toFixed(1)}</b><span>hrs (est.)</span></div></div>` +
+        `<p><b>Best time:</b> ${esc(r.bestTime)}</p><p><b>Rider tip:</b> ${esc(r.tip)}</p>` +
+        `<p class="note">Figures are approximate. Check the live route and weather before you go.</p>`;
+      if (typeof dialog.showModal === "function") dialog.showModal();
+      else dialog.setAttribute("open", "");
+    }
+  });
+
+  $("#dlg-close").addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+
+  render();
+})();
+
+=================== src/gear.ts ===================
+/* RideHub - Gear Shop: filter, sort, cart drawer with totals (stored in localStorage) */
+(function () {
+  const { $, $$, esc, inr, load, save, toast } = RH;
+  RH.init("gear");
+
+  // Demo products only - generic items, no real brands or real checkout.
+  const products: Product[] = [
+    { id: 1, name: "AeroShell Helmet", category: "Safety", price: 2499, rating: 4.6, icon: "⛑", blurb: "Lightweight, 18 vents, adjustable fit dial." },
+    { id: 2, name: "Beam 800 Front Light", category: "Safety", price: 1299, rating: 4.4, icon: "🔦", blurb: "USB-C rechargeable, 6 modes, 10 hr runtime." },
+    { id: 3, name: "Tail Flash Pro", category: "Safety", price: 799, rating: 4.5, icon: "🔴", blurb: "Bright rear light with auto brake flash." },
+    { id: 4, name: "Padded Gel Gloves", category: "Comfort", price: 899, rating: 4.3, icon: "🧤", blurb: "Gel palms reduce hand fatigue on long rides." },
+    { id: 5, name: "Bib Shorts Elite", category: "Comfort", price: 2199, rating: 4.7, icon: "🩳", blurb: "Quick-dry fabric with all-day padded chamois." },
+    { id: 6, name: "Hydration Bottle 750ml", category: "Comfort", price: 349, rating: 4.2, icon: "🧴", blurb: "BPA-free, easy squeeze, fits standard cages." },
+    { id: 7, name: "Mini Pump + Patch Kit", category: "Tools", price: 599, rating: 4.4, icon: "🛠", blurb: "Pocket pump with puncture repair essentials." },
+    { id: 8, name: "Multi-Tool 16-in-1", category: "Tools", price: 749, rating: 4.5, icon: "🔧", blurb: "Allen keys, chain breaker, spoke wrench." },
+    { id: 9, name: "Chain Lube Set", category: "Tools", price: 449, rating: 4.1, icon: "🛢", blurb: "All-weather lube and degreaser combo." },
+    { id: 10, name: "GPS Ride Computer", category: "Tech", price: 5999, rating: 4.6, icon: "📍", blurb: "Tracks speed, distance and elevation offline." },
+    { id: 11, name: "Phone Handlebar Mount", category: "Tech", price: 499, rating: 4.0, icon: "📱", blurb: "Shock-absorbing mount for most phones." },
+    { id: 12, name: "Heart Rate Strap", category: "Tech", price: 1999, rating: 4.3, icon: "❤", blurb: "Bluetooth strap, works with common ride apps." },
+  ];
+
+  type CartItem = { id: number; qty: number };
+  let cart: CartItem[] = load<CartItem[]>("cart", []);
+
+  const grid = $("#product-grid");
+  const cat = $("#category") as HTMLSelectElement;
+  const sort = $("#sort") as HTMLSelectElement;
+  const search = $("#search") as HTMLInputElement;
+
+  function stars(n: number): string {
+    const full = Math.round(n);
+    return "★".repeat(full) + "☆".repeat(5 - full);
+  }
+
+  function renderProducts(): void {
+    const q = search.value.trim().toLowerCase();
+    const list = products.filter(
+      (p) => (cat.value === "All" || p.category === cat.value) && (!q || p.name.toLowerCase().includes(q))
+    );
+    if (sort.value === "low") list.sort((a, b) => a.price - b.price);
+    if (sort.value === "high") list.sort((a, b) => b.price - a.price);
+    if (sort.value === "rating") list.sort((a, b) => b.rating - a.rating);
+
+    grid.innerHTML = list.length
+      ? list
+          .map(
+            (p) =>
+              `<article class="card product"><div class="prod-art" aria-hidden="true">${p.icon}</div>` +
+              `<div class="card-body"><span class="pill cat">${p.category}</span><h3>${esc(p.name)}</h3>` +
+              `<p class="muted">${esc(p.blurb)}</p>` +
+              `<div class="row"><span class="stars" aria-label="${p.rating} out of 5">${stars(p.rating)} <small>${p.rating}</small></span><strong>${inr(p.price)}</strong></div>` +
+              `<button class="btn small" data-add="${p.id}">Add to cart</button></div></article>`
+          )
+          .join("")
+      : '<p class="empty">No products match your search.</p>';
+  }
+
+  function persist(): void {
+    save("cart", cart);
+    RH.updateCartBadge();
+    renderCart();
+  }
+
+  function renderCart(): void {
+    const body = $("#cart-items");
+    if (!cart.length) {
+      body.innerHTML = '<p class="empty">Your cart is empty. Add some gear!</p>';
+    } else {
+      body.innerHTML = cart
+        .map((i) => {
+          const p = products.find((x) => x.id === i.id) as Product;
+          return (
+            `<div class="cart-row"><span class="ico" aria-hidden="true">${p.icon}</span>` +
+            `<div class="grow"><strong>${esc(p.name)}</strong><br/><small>${inr(p.price)} each</small></div>` +
+            `<div class="qty"><button data-dec="${p.id}" aria-label="Decrease">-</button><span>${i.qty}</span><button data-inc="${p.id}" aria-label="Increase">+</button></div>` +
+            `<button class="link" data-rm="${p.id}" aria-label="Remove ${esc(p.name)}">Remove</button></div>`
+          );
+        })
+        .join("");
+    }
+    const subtotal = cart.reduce((s, i) => s + (products.find((p) => p.id === i.id) as Product).price * i.qty, 0);
+    const discount = subtotal >= 5000 ? Math.round(subtotal * 0.1) : 0;
+    $("#subtotal").textContent = inr(subtotal);
+    $("#discount").textContent = discount ? "-" + inr(discount) : inr(0);
+    $("#total").textContent = inr(subtotal - discount);
+    $("#discount-note").textContent = discount ? "10% club discount applied" : "Spend ₹5,000+ to get 10% off";
+  }
+
+  grid.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest("[data-add]") as HTMLElement | null;
+    if (!btn) return;
+    const id = Number(btn.dataset.add);
+    const found = cart.find((i) => i.id === id);
+    if (found) found.qty += 1;
+    else cart.push({ id, qty: 1 });
+    persist();
+    toast("Added to cart");
+  });
+
+  $("#cart-items").addEventListener("click", (e) => {
+    const t = e.target as HTMLElement;
+    const id = Number(t.dataset.inc || t.dataset.dec || t.dataset.rm);
+    if (!id) return;
+    const item = cart.find((i) => i.id === id);
+    if (!item) return;
+    if (t.dataset.inc) item.qty += 1;
+    if (t.dataset.dec) item.qty -= 1;
+    if (t.dataset.rm || item.qty <= 0) cart = cart.filter((i) => i.id !== id);
+    persist();
+  });
+
+  $("#checkout").addEventListener("click", () => {
+    if (!cart.length) {
+      toast("Your cart is empty");
+      return;
+    }
+    cart = [];
+    persist();
+    toast("Demo order placed - thanks! (no real payment)");
+  });
+
+  [cat, sort, search].forEach((el) => el.addEventListener("input", renderProducts));
+
+  // cart drawer open / close (also opens from the #cart link in the header)
+  const drawer = $("#cart-drawer");
+  function setDrawer(open: boolean): void {
+    drawer.classList.toggle("open", open);
+    drawer.setAttribute("aria-hidden", String(!open));
+  }
+  $("#open-cart").addEventListener("click", () => setDrawer(true));
+  $("#close-cart").addEventListener("click", () => setDrawer(false));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") setDrawer(false);
+  });
+  if (location.hash === "#cart") setDrawer(true);
+  window.addEventListener("hashchange", () => setDrawer(location.hash === "#cart"));
+
+  renderProducts();
+  renderCart();
+})();
+
+=================== src/ridelog.ts ===================
+/* RideHub - Ride Log: add / delete rides, live summary, CSV export */
+(function () {
+  const { $, esc, fmtDuration, toast } = RH;
+  RH.init("ridelog");
+
+  let rides: Ride[] = RH.getRides();
+
+  const form = $("#ride-form") as HTMLFormElement;
+  const dateEl = $("#r-date") as HTMLInputElement;
+  const routeEl = $("#r-route") as HTMLInputElement;
+  const kmEl = $("#r-km") as HTMLInputElement;
+  const minsEl = $("#r-mins") as HTMLInputElement;
+  const bikeEl = $("#r-bike") as HTMLSelectElement;
+  const preview = $("#speed-preview");
+
+  dateEl.value = RH.isoDaysAgo(0);
+  dateEl.max = RH.isoDaysAgo(0);
+
+  function updatePreview(): void {
+    const km = Number(kmEl.value);
+    const mins = Number(minsEl.value);
+    preview.textContent = km > 0 && mins > 0 ? `Average speed: ${(km / (mins / 60)).toFixed(1)} km/h` : "Average speed will show here";
+  }
+  kmEl.addEventListener("input", updatePreview);
+  minsEl.addEventListener("input", updatePreview);
+
+  function setError(id: string, msg: string): void {
+    $("#err-" + id).textContent = msg;
+  }
+
+  function validate(): boolean {
+    let ok = true;
+    setError("route", "");
+    setError("km", "");
+    setError("mins", "");
+    if (routeEl.value.trim().length < 3) {
+      setError("route", "Enter a route name (min 3 characters)");
+      ok = false;
+    }
+    const km = Number(kmEl.value);
+    if (!(km > 0 && km <= 500)) {
+      setError("km", "Distance must be between 0.1 and 500 km");
+      ok = false;
+    }
+    const mins = Number(minsEl.value);
+    if (!(mins >= 5 && mins <= 1500)) {
+      setError("mins", "Duration must be 5 - 1500 minutes");
+      ok = false;
+    }
+    return ok;
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+    const ride: Ride = {
+      id: Date.now(),
+      date: dateEl.value || RH.isoDaysAgo(0),
+      route: routeEl.value.trim(),
+      km: Math.round(Number(kmEl.value) * 10) / 10,
+      mins: Math.round(Number(minsEl.value)),
+      bike: bikeEl.value,
+    };
+    rides.push(ride);
+    RH.saveRides(rides);
+    form.reset();
+    dateEl.value = RH.isoDaysAgo(0);
+    updatePreview();
+    render();
+    toast("Ride saved!");
+  });
+
+  function render(): void {
+    const sorted = [...rides].sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id);
+    const km = rides.reduce((s, r) => s + r.km, 0);
+    const mins = rides.reduce((s, r) => s + r.mins, 0);
+    $("#sum-rides").textContent = String(rides.length);
+    $("#sum-km").textContent = km.toFixed(1);
+    $("#sum-time").textContent = fmtDuration(mins);
+    $("#sum-best").textContent = rides.length ? Math.max(...rides.map((r) => r.km)) + " km" : "-";
+
+    $("#log-body").innerHTML = sorted.length
+      ? sorted
+          .map(
+            (r) =>
+              `<tr><td>${r.date}</td><td>${esc(r.route)}</td><td>${esc(r.bike)}</td><td>${r.km} km</td><td>${fmtDuration(r.mins)}</td>` +
+              `<td>${(r.km / (r.mins / 60)).toFixed(1)}</td>` +
+              `<td><button class="link danger" data-del="${r.id}" aria-label="Delete ride on ${r.date}">Delete</button></td></tr>`
+          )
+          .join("")
+      : '<tr><td colspan="7" class="empty">No rides yet. Add your first ride above!</td></tr>';
+  }
+
+  $("#log-body").addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest("[data-del]") as HTMLElement | null;
+    if (!btn) return;
+    rides = rides.filter((r) => r.id !== Number(btn.dataset.del));
+    RH.saveRides(rides);
+    render();
+    toast("Ride deleted");
+  });
+
+  $("#export").addEventListener("click", () => {
+    const rows = [["Date", "Route", "Bike", "Distance_km", "Duration_min"]].concat(
+      rides.map((r) => [r.date, '"' + r.route.replace(/"/g, '""') + '"', r.bike, String(r.km), String(r.mins)])
+    );
+    const blob = new Blob([rows.map((r) => r.join(",")).join("\n")], { type: "text/csv" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "ridehub-rides.csv";
+    a.click();
+    URL.revokeObjectURL(a.href);
+    toast("CSV downloaded");
+  });
+
+  $("#reset").addEventListener("click", () => {
+    if (confirm("Reset the log back to the demo rides?")) {
+      try {
+        localStorage.removeItem("ridehub.rides");
+      } catch {
+        /* ignore */
+      }
+      rides = RH.getRides();
+      render();
+      toast("Demo data restored");
+    }
+  });
+
+  updatePreview();
+  render();
+})();
+
+=================== src/contact.ts ===================
+/* RideHub - Join the Club: validated sign-up form + FAQ accordion */
+(function () {
+  const { $, load, save, toast } = RH;
+  RH.init("contact");
+
+  const form = $("#join-form") as HTMLFormElement;
+  const fields = {
+    name: $("#c-name") as HTMLInputElement,
+    email: $("#c-email") as HTMLInputElement,
+    phone: $("#c-phone") as HTMLInputElement,
+    level: $("#c-level") as HTMLSelectElement,
+    msg: $("#c-msg") as HTMLTextAreaElement,
+  };
+
+  const setErr = (id: string, msg: string) => {
+    $("#e-" + id).textContent = msg;
+    const el = (fields as Record<string, HTMLElement>)[id];
+    el.setAttribute("aria-invalid", msg ? "true" : "false");
+  };
+
+  function validate(): boolean {
+    let ok = true;
+    if (fields.name.value.trim().length < 2) { setErr("name", "Please enter your name"); ok = false; } else setErr("name", "");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(fields.email.value.trim())) { setErr("email", "Enter a valid email address"); ok = false; } else setErr("email", "");
+    if (fields.phone.value && !/^[0-9+\-\s]{10,14}$/.test(fields.phone.value.trim())) { setErr("phone", "Phone must be 10-14 digits"); ok = false; } else setErr("phone", "");
+    if (!fields.level.value) { setErr("level", "Choose your riding level"); ok = false; } else setErr("level", "");
+    if (fields.msg.value.trim().length < 10) { setErr("msg", "Tell us a little more (min 10 characters)"); ok = false; } else setErr("msg", "");
+    return ok;
+  }
+
+  (Object.values(fields) as HTMLElement[]).forEach((el) => el.addEventListener("blur", () => { if (form.dataset.touched) validate(); }));
+
+  const count = $("#msg-count");
+  fields.msg.addEventListener("input", () => (count.textContent = `${fields.msg.value.length}/300`));
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    form.dataset.touched = "1";
+    if (!validate()) {
+      toast("Please fix the highlighted fields");
+      return;
+    }
+    const members = load<object[]>("members", []);
+    members.push({ name: fields.name.value.trim(), email: fields.email.value.trim(), level: fields.level.value, at: new Date().toISOString() });
+    save("members", members);
+    form.hidden = true;
+    const ok = $("#success");
+    ok.hidden = false;
+    $("#success-name").textContent = fields.name.value.trim().split(" ")[0];
+    toast("Welcome to RideHub!");
+  });
+
+  // FAQ accordion
+  document.querySelectorAll<HTMLButtonElement>(".faq button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const open = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!open));
+      (btn.nextElementSibling as HTMLElement).hidden = open;
+    });
+  });
+})();
+
+=================== tsconfig.json ===================
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "rootDir": "src",
+    "outDir": "js",
+    "strict": true,
+    "removeComments": false,
+    "ignoreDeprecations": "6.0",
+    "types": []
+  },
+  "include": ["src/**/*.ts"]
+}
+

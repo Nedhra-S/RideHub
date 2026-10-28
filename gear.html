@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gear Shop | RideHub</title>
+<meta name="description" content="Helmets, lights, tools and tech for every rider. Demo shop with a working cart." />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<header id="site-header"></header>
+<main id="main" class="wrap">
+  <div class="page-head">
+    <h1>Gear Shop</h1>
+    <p>A demo store: add items, change quantities and watch the totals. Spend over &#8377;5,000 for 10% off. No real payments.</p>
+  </div>
+
+  <div class="toolbar" style="grid-template-columns: 2fr 1fr 1fr auto;">
+    <div><label for="search">Search gear</label><input id="search" type="search" placeholder="Helmet, light, pump..." /></div>
+    <div><label for="category">Category</label>
+      <select id="category"><option>All</option><option>Safety</option><option>Comfort</option><option>Tools</option><option>Tech</option></select></div>
+    <div><label for="sort">Sort by</label>
+      <select id="sort"><option value="default">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="rating">Top rated</option></select></div>
+    <button class="btn" id="open-cart" type="button">View cart</button>
+  </div>
+
+  <div class="cards" id="product-grid"></div>
+
+  <aside id="cart-drawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="drawer-head"><h2>Your cart</h2><button class="btn ghost small" id="close-cart" type="button">Close</button></div>
+    <div id="cart-items"></div>
+    <div class="totals">
+      <div><span>Subtotal</span><span id="subtotal"></span></div>
+      <div><span>Discount <small id="discount-note"></small></span><span id="discount"></span></div>
+      <div class="grand"><span>Total</span><span id="total"></span></div>
+    </div>
+    <button class="btn" id="checkout" type="button" style="margin-top:14px">Place demo order</button>
+  </aside>
+</main>
+<footer id="site-footer"></footer>
+<script src="js/common.js"></script>
+<script src="js/gear.js"></script>
+</body>
+</html>

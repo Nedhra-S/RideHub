@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dashboard | RideHub</title>
+<meta name="description" content="Your personal riding dashboard: weekly distance, monthly goal, bike maintenance and achievements." />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<header id="site-header"></header>
+<main id="main" class="wrap">
+  <section class="hero">
+    <p class="eyebrow">Your riding dashboard</p>
+    <h1 id="greeting">Hello, rider!</h1>
+    <p>Track every kilometre, keep your bike healthy and chase your monthly goal. Everything here is saved in your browser.</p>
+    <div class="actions">
+      <a class="btn" href="ridelog.html">+ Log a ride</a>
+      <a class="btn ghost" href="routes.html">Find a route</a>
+    </div>
+    <p class="quote" id="quote"></p>
+  </section>
+
+  <section class="stats" aria-label="Riding totals">
+    <div class="card stat accent"><span>Total distance</span><strong id="stat-km">0</strong><small>km</small></div>
+    <div class="card stat"><span>Rides</span><strong id="stat-rides">0</strong></div>
+    <div class="card stat"><span>Moving time</span><strong id="stat-time">0m</strong></div>
+    <div class="card stat"><span>Avg speed</span><strong id="stat-speed">0</strong><small>km/h</small></div>
+    <div class="card stat"><span>Calories (est.)</span><strong id="stat-cal">0</strong></div>
+  </section>
+
+  <section class="dash-grid">
+    <div class="panel span-7">
+      <h2>Last 7 days <small id="week-total"></small></h2>
+      <div id="week-chart"></div>
+    </div>
+
+    <div class="panel span-5">
+      <h2>Monthly goal</h2>
+      <div class="goal-wrap">
+        <div id="goal-ring"></div>
+        <form id="goal-form">
+          <label for="goal-input">Goal (km)</label>
+          <div class="inline"><input id="goal-input" type="number" min="20" max="5000" step="10" /><button class="btn small" type="submit">Set</button></div>
+        </form>
+      </div>
+    </div>
+
+    <div class="panel span-4">
+      <h2>Bike maintenance</h2>
+      <ul id="maint-list"></ul>
+    </div>
+
+    <div class="panel span-4">
+      <h2>Pre-ride checklist <small id="check-status"></small></h2>
+      <ul id="checklist"></ul>
+      <button class="link" id="check-reset" type="button">Reset checklist</button>
+    </div>
+
+    <div class="panel span-4">
+      <h2>Achievements</h2>
+      <ul id="badges"></ul>
+    </div>
+
+    <div class="panel span-12">
+      <h2>Recent rides <a class="link" href="ridelog.html">View full log</a></h2>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Date</th><th>Route</th><th>Distance</th><th>Time</th><th>Avg speed</th></tr></thead>
+          <tbody id="recent-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+<footer id="site-footer"></footer>
+<script src="js/common.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Join the Club | RideHub</title>
+<meta name="description" content="Join the RideHub community: weekend group rides, safety workshops and member discounts." />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<header id="site-header"></header>
+<main id="main" class="wrap">
+  <div class="page-head">
+    <h1>Join the RideHub Club</h1>
+    <p>Weekend group rides, maintenance workshops and gear discounts. Fill in the form and we will find you a riding group.</p>
+  </div>
+
+  <div class="two-col" style="grid-template-columns: 3fr 2fr;">
+    <section class="panel">
+      <form id="join-form" novalidate>
+        <h2>Sign up</h2>
+        <div class="form-grid">
+          <div class="field"><label for="c-name">Full name</label><input id="c-name" autocomplete="name" /><span class="err" id="e-name"></span></div>
+          <div class="field"><label for="c-email">Email</label><input id="c-email" type="email" autocomplete="email" /><span class="err" id="e-email"></span></div>
+          <div class="field"><label for="c-phone">Phone (optional)</label><input id="c-phone" type="tel" autocomplete="tel" /><span class="err" id="e-phone"></span></div>
+          <div class="field"><label for="c-level">Riding level</label>
+            <select id="c-level"><option value="">Choose...</option><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select><span class="err" id="e-level"></span></div>
+          <div class="field full"><label for="c-msg">What do you love about riding?</label><textarea id="c-msg" rows="4" maxlength="300"></textarea>
+            <div class="row"><span class="err" id="e-msg"></span><small class="muted" id="msg-count">0/300</small></div></div>
+        </div>
+        <button class="btn" type="submit">Join the club</button>
+      </form>
+      <div class="success" id="success" hidden>
+        <div class="tick" aria-hidden="true">&#127881;</div>
+        <h2>Welcome, <span id="success-name"></span>!</h2>
+        <p class="muted">You are on the list. Check the Routes page and plan your first ride.</p>
+        <a class="btn" href="routes.html">Browse routes</a>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Member perks</h2>
+      <ul class="perks">
+        <li>Sunday group rides for every level</li>
+        <li>Monthly bike maintenance workshop</li>
+        <li>10% off on big gear orders</li>
+        <li>Safety and night-riding tips</li>
+      </ul>
+      <h2 style="margin-top:22px">FAQ</h2>
+      <div class="faq">
+        <button aria-expanded="false">Do I need an expensive bike?</button><div class="answer" hidden>No. Any well-maintained bike works. We ride at a friendly pace.</div>
+        <button aria-expanded="false">Is the club free?</button><div class="answer" hidden>This is a demo site, so there is nothing to pay.</div>
+        <button aria-expanded="false">What should I bring?</button><div class="answer" hidden>Helmet, water, a spare tube and a good mood.</div>
+      </div>
+    </section>
+  </div>
+</main>
+<footer id="site-footer"></footer>
+<script src="js/common.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>
